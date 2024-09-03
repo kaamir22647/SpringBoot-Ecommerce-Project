@@ -1,17 +1,27 @@
 package com.ecommerce.project.controller;
 
 import com.ecommerce.project.config.AppConstant;
+import com.ecommerce.project.model.AppRole;
+import com.ecommerce.project.model.Role;
+import com.ecommerce.project.model.User;
+import com.ecommerce.project.security.jwt.dto.response.MessageResponse;
 import com.ecommerce.project.payload.ProductDTO;
 import com.ecommerce.project.payload.ProductResponse;
+import com.ecommerce.project.security.jwt.dto.request.SignUpRequest;
+import com.ecommerce.project.repositories.RoleRepository;
+import com.ecommerce.project.repositories.UserRepository;
 import com.ecommerce.project.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
@@ -19,6 +29,7 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
 
     @PostMapping("/admin/categories/{categoryId}/product")
     public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO,
@@ -76,4 +87,5 @@ public class ProductController {
         return new ResponseEntity<>(productService.updateProductImage(productId,image),HttpStatus.OK);
 
     }
+
 }
