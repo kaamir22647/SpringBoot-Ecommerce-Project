@@ -28,25 +28,28 @@ public class Address {
     private String street;
 
     @NotBlank
+    @Size(min = 5, message = "Building name must be atleast 5 characters")
+    private String buildingName;
+
+    @NotBlank
     @Size(min=10,message = "City name must be at least 10 characters")
     private String city;
 
     @NotBlank
-    @Size(min=20,message = "State name must be at least 10 characters")
+    @Size(min=10,message = "State name must be at least 10 characters")
     private String state;
 
     @NotBlank
-    @Size(min=20,message = "Country name must be at least 20 characters")
+    @Size(min=3,message = "Country name must be at least 3 characters")
     private String country;
 
     @NotBlank
-    @Size(min=6,message = "Pincode name must be at least 6 characters")
+    @Size(min=5,message = "Pincode name must be at least 5 characters")
     private String pincode;
 
-    //exculded users from to string
-    @ToString.Exclude
-    @ManyToMany(mappedBy = "addresses")
-    private List<User> users = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name= "user_id")
+    private User user;
 
     public Address(String street, String city, String state, String country, String pincode) {
         this.street = street;
